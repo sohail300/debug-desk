@@ -1,13 +1,11 @@
 "use client";
 
 import Link from "next/link";
-// import { useAuth } from '@clerk/nextjs'
 import { Button } from "@/components/ui/button";
 import { LogOutIcon, SquareKanban } from "lucide-react";
 import GoogleSVG from "./GoogleSVG";
 
 export function LandingNavbar() {
-  //   const { isSignedIn, signOut } = useAuth()
   const isSignedIn = false;
 
   return (
@@ -25,7 +23,6 @@ export function LandingNavbar() {
               </Button>
             </Link>
             <Button
-              // onClick={() => signOut()}
               variant="outline"
               className="silver-gradient-btn hover:text-gray-800"
             >
@@ -34,12 +31,14 @@ export function LandingNavbar() {
             </Button>
           </div>
         ) : (
-          <Button
-            variant="outline"
-            className="flex items-center silver-gradient-btn hover:text-gray-800"
-          >
-            <GoogleSVG /> <span>Sign in</span>
-          </Button>
+          <Link href={"/sign-in/signin"}>
+            <Button
+              variant="outline"
+              className="flex items-center silver-gradient-btn hover:text-gray-800"
+            >
+              <GoogleSVG /> <span>Sign in</span>
+            </Button>
+          </Link>
         )}
       </div>
     </nav>

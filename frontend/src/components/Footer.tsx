@@ -1,6 +1,6 @@
 import React from "react";
 import { Twitter, Linkedin, Github } from "lucide-react";
-import { getCurrYear } from "@/app/utils/getCurrYear";
+import { getCurrYear } from "@/utils/getCurrYear";
 import Image from "next/image";
 import debugDesk from "@/assets/debug-desk.png";
 
