@@ -37,7 +37,7 @@ export default function Pricing() {
         </h3>
 
         <div className="flex justify-around">
-          {tiers.map((tier, index) => (
+          {tiers.map((tier) => (
             <div
               key={tier.name}
               className={`w-[400px] relative flex flex-col rounded-2xl backdrop-blur-sm border border-gray-800 bg-gradient-to-br from-gray-900 via-gray-950 to-gray-800 p-8 shadow-2xl`}

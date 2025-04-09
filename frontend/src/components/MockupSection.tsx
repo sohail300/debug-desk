@@ -7,26 +7,33 @@ import pyramid from "@/assets/pyramid.png";
 import tube from "@/assets/tube.png";
 
 const MockupSection = () => {
-  const sectionRef = useRef(null);
+  const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const section = sectionRef.current;
     if (!section) return;
 
-    const updateParallax = (entries) => {
+    interface ParallaxEntry extends IntersectionObserverEntry {
+      isIntersecting: boolean;
+    }
+
+    const updateParallax = (entries: ParallaxEntry[]): (() => void) | void => {
       const entry = entries[0];
       if (!entry.isIntersecting) return;
 
-      const updatePosition = () => {
+      const updatePosition = (): void => {
         const rect = section.getBoundingClientRect();
         const scrollPercentage =
           1 - (rect.top + rect.height) / (window.innerHeight + rect.height) + 1;
-        section.style.setProperty("--scroll-percentage", scrollPercentage);
+        section.style.setProperty(
+          "--scroll-percentage",
+          scrollPercentage.toString()
+        );
       };
 
       // Use requestAnimationFrame for smooth updates
       let ticking = false;
-      const onScroll = () => {
+      const onScroll = (): void => {
         if (!ticking) {
           window.requestAnimationFrame(() => {
             updatePosition();
@@ -39,7 +46,7 @@ const MockupSection = () => {
       updatePosition();
       window.addEventListener("scroll", onScroll, { passive: true });
 
-      return () => window.removeEventListener("scroll", onScroll);
+      return (): void => window.removeEventListener("scroll", onScroll);
     };
 
     const observer = new IntersectionObserver(updateParallax, {
@@ -54,10 +61,12 @@ const MockupSection = () => {
     <section
       ref={sectionRef}
       className="py-24 relative overflow-hidden w-full"
-      style={{
-        "--pyramid-move": "calc(var(--scroll-percentage, 0) * -50px)",
-        "--tube-move": "calc(var(--scroll-percentage, 0) * -70px)",
-      }}
+      style={
+        {
+          "--pyramid-move": "calc(var(--scroll-percentage, 0) * -50px)",
+          "--tube-move": "calc(var(--scroll-percentage, 0) * -70px)",
+        } as React.CSSProperties
+      }
     >
       <div className="container mx-auto relative">
         <h3 className="bg-clip-text bg-gradient-to-r from-blue-500 via-blue-200 to-blue-400 opacity-1 pb-2 font-semibold text-balance text-transparent sm:text-2xl md:text-3xl lg:text-5xl leading-none tracking-tighter translate-y-[-1rem] animate-fade-in [--animation-delay:200ms] text-center mb-12">

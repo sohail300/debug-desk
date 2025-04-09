@@ -2,6 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
+import { StaticImageData } from "next/image";
 import { motion } from "framer-motion";
 import abhishek from "@/assets/testimonials/abhishek.jpg";
 import arindam from "@/assets/testimonials/arindam.jpg";
@@ -63,32 +64,41 @@ const testimonialData = [
   },
 ];
 
-const TestimonialCard = React.memo(({ content, name, avatar, post }) => (
-  <motion.div
-    className="card bg-white p-0 rounded-lg shadow-md"
-    whileHover={{ scale: 1.05 }}
-    transition={{ type: "spring", stiffness: 300 }}
-  >
-    <p className="text-gray-700 mb-4">{content}</p>
-    <div className="flex items-center gap-2">
-      <Image
-        alt={name}
-        src={avatar || "/placeholder.svg"}
-        width={40}
-        height={40}
-        className="h-10 w-10 rounded-full object-cover"
-      />
-      <div className="flex flex-col">
-        <div className="font-medium tracking-tight leading-5 text-gray-900">
-          {name}
-        </div>
-        <div className="font-medium tracking-tight leading-5 text-gray-500">
-          {post}
+interface TestimonialCardProps {
+  content: string;
+  name: string;
+  avatar: string | StaticImageData;
+  post: string;
+}
+
+const TestimonialCard = React.memo(
+  ({ content, name, avatar, post }: TestimonialCardProps) => (
+    <motion.div
+      className="card bg-white p-0 rounded-lg shadow-md"
+      whileHover={{ scale: 1.05 }}
+      transition={{ type: "spring", stiffness: 300 }}
+    >
+      <p className="text-gray-700 mb-4">{content}</p>
+      <div className="flex items-center gap-2">
+        <Image
+          alt={name}
+          src={avatar || "/placeholder.svg"}
+          width={40}
+          height={40}
+          className="h-10 w-10 rounded-full object-cover"
+        />
+        <div className="flex flex-col">
+          <div className="font-medium tracking-tight leading-5 text-gray-900">
+            {name}
+          </div>
+          <div className="font-medium tracking-tight leading-5 text-gray-500">
+            {post}
+          </div>
         </div>
       </div>
-    </div>
-  </motion.div>
-));
+    </motion.div>
+  )
+);
 
 TestimonialCard.displayName = "TestimonialCard";
 

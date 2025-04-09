@@ -9,13 +9,11 @@ import Pricing from "@/components/Pricing";
 import Comparison from "@/components/Comparison";
 import Working from "@/components/Working";
 import Features from "@/components/Features";
-import { DashboardNavbar } from "@/components/DashboardNavbar";
 
 export default function Home() {
   return (
     <div>
       <LandingNavbar />
-      {/* <DashboardNavbar /> */}
       <HeroSection />
       <CompanyCarousel />
       <MockupSection />

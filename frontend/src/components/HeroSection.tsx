@@ -1,27 +1,10 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import { Button } from "./ui/button";
 import GoogleSVG from "./GoogleSVG";
-import { useClerk } from "@clerk/nextjs";
 
 const HeroSection = () => {
-  const [loading, setLoading] = useState(false);
-  const { redirectToSignIn } = useClerk();
-
-  async function handleSignin() {
-    try {
-      redirectToSignIn({
-        redirectUrl: "/", // Redirects back to home after sign-in
-        strategy: "oauth_google", // Correct way to specify OAuth provider
-      });
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setLoading(false);
-    }
-  }
-
   return (
     <section className="relative container mx-auto py-56 text-center">
       <div className="mt-32 absolute top-0 left-1/2 -translate-x-1/2 w-2/3 h-96 bg-blue-500/20 rounded-full blur-3xl" />
@@ -35,13 +18,12 @@ const HeroSection = () => {
       </p>
 
       <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-        {/* <Button
+        <Button
           variant="outline"
           className="flex items-center silver-gradient-btn hover:text-gray-800 z-50"
-          onClick={handleSignin}
         >
           <GoogleSVG /> <span>Sign in with Google</span>
-        </Button> */}
+        </Button>
       </div>
     </section>
   );
